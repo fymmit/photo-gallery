@@ -1,6 +1,8 @@
 const sqlite3 = require('sqlite3').verbose()
 const db = new sqlite3.Database('./db/images.db')
 
+db.run('CREATE TABLE if not exists images(name text)')
+
 function insertImageNames(names) {
     let placeholders = names.map(name => '(?)').join(',');
     let sql = 'INSERT INTO images(name) VALUES ' + placeholders;
