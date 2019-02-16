@@ -7,7 +7,8 @@ app.use(express.static('photos'))
 app.use(cors())
 
 const images = [
-    'patsas.jpg'
+    'patsas.jpg',
+    'aita.jpg'
 ]
 
 app.get('/', (req, res) => {
