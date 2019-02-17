@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PhotoGallery from './components/photo-gallery';
+import PhotoUpload from './components/photo-upload';
 
 class App extends Component {
     state = {
@@ -15,6 +16,7 @@ class App extends Component {
     render() {
         return (
             <div className="App">
+                <PhotoUpload />
                 <PhotoGallery images={this.state.images} />
             </div>
         );
