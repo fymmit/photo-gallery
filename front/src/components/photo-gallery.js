@@ -1,9 +1,11 @@
 import React from 'react'
+import Photo from './photo';
 
 const PhotoGallery = (props) => {
     const images = props.images.map(image => {
         return(
-            <img src={image} alt={image} key={image}/>
+            <Photo 
+                name={image}/>
         )
     })
     return(

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PhotoGallery from './components/photo-gallery';
 import PhotoUpload from './components/photo-upload';
+import './app.css'
 
 class App extends Component {
     state = {
