@@ -22,7 +22,16 @@ function queryImageNames() {
     })
 }
 
+function deleteImage(name) {
+    let sql = 'DELETE FROM images WHERE name = ?'
+    db.run(sql, name, function(err) {
+        if (err) throw err
+        console.log(`Row(s) deleted ${this.changes}`)
+    })
+}
+
 module.exports = {
     insertImageNames,
-    queryImageNames
+    queryImageNames,
+    deleteImage
 }

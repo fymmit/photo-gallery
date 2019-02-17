@@ -17,10 +17,17 @@ app.get('/images', async (req, res) => {
     res.send(await db.queryImageNames())
 })
 
-app.post('/imagenames', (req, res) => {
+app.post('/images', (req, res) => {
     db.insertImageNames(req.body.names)
     res.json(req.body)
 })
+
+app.delete('/images', (req, res) => {
+    db.deleteImage(req.body.name)
+    res.json(req.body)
+})
+
+app.post
 
 app.listen(port, () => {
     console.log('Listening on port', port)
