@@ -13,10 +13,8 @@ app.get('/', (req, res) => {
     res.send('Hello world!')
 })
 
-app.get('/images', (req, res) => {
-    db.queryImageNames(images => {
-        res.send(images)
-    })
+app.get('/images', async (req, res) => {
+    res.send(await db.queryImageNames())
 })
 
 app.post('/imagenames', (req, res) => {

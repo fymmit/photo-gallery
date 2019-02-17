@@ -12,11 +12,13 @@ function insertImageNames(names) {
     })
 }
 
-function queryImageNames(callback) {
-    let sql = 'SELECT name FROM images'
-    db.all(sql, [], (err, rows) => {
-        if (err) throw err
-        callback(rows.map(row => row.name))
+function queryImageNames() {
+    return new Promise((resolve, reject) => {
+        let sql = 'SELECT name FROM images'
+        db.all(sql, [], (err, rows) => {
+            if (err) reject(err)
+            resolve(rows.map(row => row.name))
+        })
     })
 }
 
