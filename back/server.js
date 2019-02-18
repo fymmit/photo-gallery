@@ -11,7 +11,9 @@ app.use(express.static('photos'))
 app.use(cors())
 app.use(bodyParser.json())
 app.use(busboy({
-    limits: 4 * 1024 * 1024
+    limits: {
+        fileSize: 4 * 1024 * 1024
+    }
 }))
 
 app.get('/', (req, res) => {
@@ -24,19 +26,31 @@ app.get('/images', async (req, res) => {
 
 app.post('/images', (req, res) => {
     let fstream
+    let path
+    let sizeLimitExceeded = false
     req.pipe(req.busboy)
     req.busboy.on('file', async function(fieldname, file, filename, encoding, mimetype) {
         if (mimetype == 'image/jpeg' || mimetype == 'image/png') {
             let images = await db.queryImageNames()
-            let newName = `${images.length + 1}${filename.substring(filename.lastIndexOf('.'))}`
-            fstream = fs.createWriteStream(__dirname + '/photos/' + newName)
+            let newName = `${Date.now()}${filename.substring(filename.lastIndexOf('.'))}`
+            path = __dirname + '/photos/' + newName
+            fstream = fs.createWriteStream(path)
+            file.on('limit', function() {
+                fs.unlink(path, function() {
+                    sizeLimitExceeded = true
+                })
+            })
             file.pipe(fstream)
             fstream.on('close', function() {
-                console.log('Upload finished.')
-                db.insertImageNames([newName])
-                res.redirect('back')
+                if (!sizeLimitExceeded) db.insertImageNames([newName])
             })
         }
+        else {
+            res.send('File type not allowed.')
+        }
+        req.busboy.on('finish', function() {
+            res.redirect('back')
+        })
     })
 })
 
