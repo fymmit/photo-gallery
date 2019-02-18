@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const busboy = require('connect-busboy')
 const fs = require('fs')
 const port = 9000
+const files = require('./file-handler.js')
 const db = require('./db.js')
 
 app.use(express.static('photos'))
@@ -35,13 +36,19 @@ app.post('/images', (req, res) => {
             path = __dirname + '/photos/' + newName
             fstream = fs.createWriteStream(path)
             file.on('limit', function() {
-                fs.unlink(path, function() {
-                    sizeLimitExceeded = true
-                })
+                files.deleteFile(path)
+                sizeLimitExceeded = true
             })
             file.pipe(fstream)
-            fstream.on('close', function() {
-                if (!sizeLimitExceeded) db.insertImageNames([newName])
+            fstream.on('close', async function() {
+                if (!sizeLimitExceeded) {
+                    let fileType = await files.detectFileType(path)
+                    if (fileType && (fileType.mime == 'image/jpeg' || fileType.mime == 'image/png')) {
+                        db.insertImageNames([newName])
+                    } else {
+                        files.deleteFile(path)
+                    }
+                }
             })
         }
         else {
