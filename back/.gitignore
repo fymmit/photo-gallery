@@ -1,4 +1,5 @@
 /node_modules
-/db/*.db
-/photos/*.jpg
-/photos/*.png
+/db/*
+/photos/*
+
+!*.keep
