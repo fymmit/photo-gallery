@@ -29,9 +29,8 @@ app.post('/images', (req, res) => {
     let path
     let sizeLimitExceeded = false
     req.pipe(req.busboy)
-    req.busboy.on('file', async function(fieldname, file, filename, encoding, mimetype) {
+    req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
         if (mimetype == 'image/jpeg' || mimetype == 'image/png') {
-            let images = await db.queryImageNames()
             let newName = `${Date.now()}${filename.substring(filename.lastIndexOf('.'))}`
             path = __dirname + '/photos/' + newName
             fstream = fs.createWriteStream(path)
