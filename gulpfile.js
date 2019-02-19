@@ -17,7 +17,7 @@ gulp.task('install:back', [ 'git:pull' ], shell.task(
     "cd back && npm ci"
 ))
 
-gulp.task('build', [ 'install' ], shell.task(
+gulp.task('build', [ 'install:back', 'install:front' ], shell.task(
     "cd front && npm run build"
 ))
 
