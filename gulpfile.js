@@ -10,11 +10,11 @@ gulp.task('git:pull', shell.task(
 ))
 
 gulp.task('install:front', [ 'git:pull' ], shell.task(
-    "cd front && npm ci"
+    "cd front && sudo npm ci"
 ))
 
 gulp.task('install:back', [ 'git:pull' ], shell.task(
-    "cd back && npm ci"
+    "cd back && sudo npm ci"
 ))
 
 gulp.task('build', [ 'install:back', 'install:front' ], shell.task(
@@ -22,5 +22,5 @@ gulp.task('build', [ 'install:back', 'install:front' ], shell.task(
 ))
 
 gulp.task('publish', [ 'build' ], shell.task(
-    "cp -r front/build /var/www/html/photo-gallery/front"
+    "sudo cp -r front/build /var/www/html/photo-gallery/front"
 ))
