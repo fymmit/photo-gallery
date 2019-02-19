@@ -2,6 +2,7 @@
   "name": "front",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://photos.timblo.us/",
   "dependencies": {
     "react": "^16.8.2",
     "react-dom": "^16.8.2",

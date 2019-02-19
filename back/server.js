@@ -9,6 +9,7 @@ const files = require('./file-handler.js')
 const db = require('./db.js')
 
 app.use(express.static('photos'))
+app.use(express.static('../front/build'))
 app.use(cors())
 app.use(bodyParser.json())
 app.use(busboy({
@@ -18,7 +19,7 @@ app.use(busboy({
 }))
 
 app.get('/', (req, res) => {
-    res.send('Hello world!')
+    res.sendFile('index.html')
 })
 
 app.get('/images', async (req, res) => {

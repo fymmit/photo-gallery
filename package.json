@@ -1,0 +1,23 @@
+{
+  "name": "photo-gallery",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fymmit/photo-gallery.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fymmit/photo-gallery/issues"
+  },
+  "homepage": "https://github.com/fymmit/photo-gallery#readme",
+  "dependencies": {
+    "gulp": "^4.0.0",
+    "gulp-shell": "^0.6.5"
+  }
+}
