@@ -30,35 +30,40 @@ app.post('/images', (req, res) => {
     let fstream
     let path
     let sizeLimitExceeded = false
-    req.pipe(req.busboy)
-    req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
-        if (mimetype == 'image/jpeg' || mimetype == 'image/png') {
-            let newName = `${Date.now()}${filename.substring(filename.lastIndexOf('.'))}`
-            path = __dirname + '/photos/' + newName
-            fstream = fs.createWriteStream(path)
-            file.on('limit', function() {
-                files.deleteFile(path)
-                sizeLimitExceeded = true
-            })
-            file.pipe(fstream)
-            fstream.on('close', async function() {
-                if (!sizeLimitExceeded) {
-                    let fileType = await files.detectFileType(path)
-                    if (fileType && (fileType.mime == 'image/jpeg' || fileType.mime == 'image/png')) {
-                        db.insertImageNames([newName])
-                    } else {
-                        files.deleteFile(path)
+    if (!req.body.files) {
+        res.send('Try with an image.')
+    }
+    else {
+        req.pipe(req.busboy)
+        req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
+            if (mimetype == 'image/jpeg' || mimetype == 'image/png') {
+                let newName = `${Date.now()}${filename.substring(filename.lastIndexOf('.'))}`
+                path = __dirname + '/photos/' + newName
+                fstream = fs.createWriteStream(path)
+                file.on('limit', function() {
+                    files.deleteFile(path)
+                    sizeLimitExceeded = true
+                })
+                file.pipe(fstream)
+                fstream.on('close', async function() {
+                    if (!sizeLimitExceeded) {
+                        let fileType = await files.detectFileType(path)
+                        if (fileType && (fileType.mime == 'image/jpeg' || fileType.mime == 'image/png')) {
+                            db.insertImageNames([newName])
+                        } else {
+                            files.deleteFile(path)
+                        }
                     }
-                }
+                })
+            }
+            else {
+                res.send('File type not allowed.')
+            }
+            req.busboy.on('finish', function() {
+                res.redirect('back')
             })
-        }
-        else {
-            res.send('File type not allowed.')
-        }
-        req.busboy.on('finish', function() {
-            res.redirect('back')
         })
-    })
+    }
 })
 
 app.delete('/images', (req, res) => {
