@@ -2,8 +2,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const bodyParser = require('body-parser')
-const busboy = require('connect-busboy')
-const fs = require('fs')
+const fileUpload = require('express-fileupload')
 const port = 9000
 const files = require('./file-handler.js')
 const db = require('./db.js')
@@ -12,10 +11,11 @@ app.use(express.static('photos'))
 app.use(express.static('../front/build'))
 app.use(cors())
 app.use(bodyParser.json())
-app.use(busboy({
+app.use(fileUpload({
     limits: {
         fileSize: 4 * 1024 * 1024
-    }
+    },
+    abortOnLimit: true
 }))
 
 app.get('/', (req, res) => {
@@ -27,43 +27,23 @@ app.get('/images', async (req, res) => {
 })
 
 app.post('/images', (req, res) => {
-    let fstream
     let path
-    let sizeLimitExceeded = false
-    if (!req.body.files) {
-        res.send('Try with an image.')
+    if (!req.files) {
+        return res.status(400).send('No files were uploaded.');
     }
-    else {
-        req.pipe(req.busboy)
-        req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
-            if (mimetype == 'image/jpeg' || mimetype == 'image/png') {
-                let newName = `${Date.now()}${filename.substring(filename.lastIndexOf('.'))}`
-                path = __dirname + '/photos/' + newName
-                fstream = fs.createWriteStream(path)
-                file.on('limit', function() {
-                    files.deleteFile(path)
-                    sizeLimitExceeded = true
-                })
-                file.pipe(fstream)
-                fstream.on('close', async function() {
-                    if (!sizeLimitExceeded) {
-                        let fileType = await files.detectFileType(path)
-                        if (fileType && (fileType.mime == 'image/jpeg' || fileType.mime == 'image/png')) {
-                            db.insertImageNames([newName])
-                        } else {
-                            files.deleteFile(path)
-                        }
-                    }
-                })
-            }
-            else {
-                res.send('File type not allowed.')
-            }
-            req.busboy.on('finish', function() {
-                res.redirect('back')
-            })
-        })
-    }
+    let file = req.files.image
+    let newName = `${Date.now()}${file.name.substring(file.name.lastIndexOf('.'))}`
+    path = __dirname + '/photos/' + newName
+    file.mv(path, async (err) => {
+        if (err) return res.status(500).send(err)
+        let fileType = await files.detectFileType(path)
+        if (fileType && (fileType.mime == 'image/jpeg' || fileType.mime == 'image/png')) {
+            db.insertImageNames([newName])
+        } else {
+            files.deleteFile(path)
+        }
+    })
+    res.redirect('back')
 })
 
 app.delete('/images', (req, res) => {
