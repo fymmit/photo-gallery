@@ -2,10 +2,12 @@ import React from 'react'
 import Photo from './photo';
 
 const PhotoGallery = (props) => {
-    const images = props.images.reverse().map(image => {
+    const reverse = props.images.slice()
+    const images = reverse.reverse().map(image => {
         return(
             <Photo 
-                name={image}/>
+                name={image.name}
+                key={image.name} />
         )
     })
     return(

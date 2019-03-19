@@ -17,10 +17,15 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <PhotoUpload />
+                <PhotoUpload updateImages={(i) => this.updateImages(i)} />
                 <PhotoGallery images={this.state.images} />
             </div>
         );
+    }
+
+    updateImages = (image) => {
+        const images = this.state.images.concat(image)
+        this.setState({ images })
     }
 }
 

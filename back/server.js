@@ -24,10 +24,11 @@ app.get('/', (req, res) => {
 })
 
 app.get('/images', async (req, res) => {
-    res.send(await db.queryImageNames())
+    res.send(await db.getAll())
 })
 
 app.post('/images', (req, res) => {
+    const tags = req.body.tags
     let path
     if (!req.files) {
         return res.status(400).send('No files were uploaded.');
@@ -44,14 +45,18 @@ app.post('/images', (req, res) => {
                 if (err) console.log(err)
             })
             if (fileType && (fileType.mime == 'image/jpeg' || fileType.mime == 'image/png')) {
-                db.insertImageNames([newName])
+                db.insertImage(newName, tags, 0)
+                res.status(201).send({
+                    name: newName,
+                    tags,
+                    nsfw: 0
+                })
             } else {
                 files.deleteFile(path)
             }
         })
-        res.redirect('back')
     } else {
-        res.send('Try with an image.')
+        res.status(400).send('Try with an image.')
     }
 })
 
