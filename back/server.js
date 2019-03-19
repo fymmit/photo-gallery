@@ -39,19 +39,10 @@ app.post('/images', (req, res) => {
         file.mv(path, async (err) => {
             if (err) return res.status(500).send(err)
             let fileType = await files.detectFileType(path)
-            switch (fileType.ext) {
-                case 'jpg': {
-                    newName += '.jpg'
-                    fs.rename(path, path + '.jpg', (err) => {
-                        if (err) console.log(err)
-                    })
-                } case 'png': {
-                    newName += '.png'
-                    fs.rename(path, path + '.png', (err) => {
-                        if (err) console.log(err)
-                    })
-                }
-            }
+            newName += '.' + fileType.ext
+            fs.rename(path, path + '.' + fileType.ext, (err) => {
+                if (err) console.log(err)
+            })
             if (fileType && (fileType.mime == 'image/jpeg' || fileType.mime == 'image/png')) {
                 db.insertImageNames([newName])
             } else {
