@@ -7,7 +7,8 @@ const PhotoGallery = (props) => {
         return(
             <Photo 
                 name={image.name}
-                key={image.name} />
+                key={image.name}
+                selectImage={props.selectImage} />
         )
     })
     return(

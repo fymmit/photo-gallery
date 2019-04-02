@@ -2,12 +2,15 @@ import React, { Component } from 'react'
 import PhotoGallery from './components/photo-gallery'
 import PhotoUpload from './components/photo-upload'
 import PhotoSearch from './components/photo-search'
+import PhotoInfo from './components/photo-info'
+import Header from './components/header'
 import './app.css'
 
 class App extends Component {
     state = {
         images: [],
-        visibleImages: []
+        visibleImages: [],
+        selectedImage: null
     }
 
     componentDidMount() {
@@ -17,11 +20,22 @@ class App extends Component {
     }
     
     render() {
+        let photoInfo
+        if (this.state.selectedImage) {
+            photoInfo = <PhotoInfo image={this.state.selectedImage} reset={() => this.selectImage()} />
+        } else {
+            photoInfo = null
+        }
         return (
             <div className="App">
+                <Header />
                 <PhotoUpload updateImages={(i) => this.updateImages(i)} />
                 <PhotoSearch setVisibleImages={(s) => this.setVisibleImages(s)} />
-                <PhotoGallery images={this.state.visibleImages} />
+                <PhotoGallery
+                    className="photo-gallery" 
+                    images={this.state.visibleImages}
+                    selectImage={(i) => this.selectImage(i)} />
+                {photoInfo}
             </div>
         );
     }
@@ -32,9 +46,8 @@ class App extends Component {
     }
 
     setVisibleImages = (searchString) => {
-        console.log(searchString)
         if (searchString) {
-            const searchArray = searchString.split(' ').filter(tag => tag != '')
+            const searchArray = searchString.split(' ').filter(tag => tag !== '')
             const visibleImages = this.state.images.filter(image => {
                 if (image.tags) {
                     const tags = image.tags.split(' ')
@@ -47,9 +60,18 @@ class App extends Component {
                 }
                 return false
             })
-            this.setState({ visibleImages })
+            this.setState({ visibleImages, selectedImage: null })
         } else {
             this.setState({ visibleImages: this.state.images })
+        }
+    }
+
+    selectImage = (imageName) => {
+        if (imageName) {
+            const selectedImage = this.state.images.find(image => image.name === imageName)
+            this.setState({ selectedImage, visibleImages: [] })
+        } else {
+            this.setState({ selectedImage: null, visibleImages: this.state.images })
         }
     }
 }
