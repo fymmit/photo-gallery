@@ -42,7 +42,7 @@ class App extends Component {
 
     updateImages = (image) => {
         const images = this.state.images.concat(image)
-        this.setState({ images })
+        this.setState({ images, visibleImages: images })
     }
 
     setVisibleImages = (searchString) => {
