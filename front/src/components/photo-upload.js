@@ -16,6 +16,7 @@ class PhotoUpload extends React.Component {
         return(
             <form onSubmit={this.handleSubmit}>
                 <input type='file' name='image' ref={this.fileInput} />
+                Tags:
                 <input onChange={this.handleTagsInput} value={this.state.tagsInput} type='text' name='tags' />
                 <input type='submit' value='Upload'/>
             </form>
