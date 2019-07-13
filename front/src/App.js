@@ -50,9 +50,8 @@ class App extends Component {
             const searchArray = searchString.toLowerCase().split(' ').filter(tag => tag !== '')
             const visibleImages = this.state.images.filter(image => {
                 if (image.tags) {
-                    const tags = image.tags.toLowerCase().split(' ')
                     for (const searchTag of searchArray) {
-                        if (!tags.includes(searchTag)) {
+                        if (!image.tags.includes(searchTag)) {
                             return false
                         }
                     }
