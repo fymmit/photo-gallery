@@ -51,7 +51,7 @@ class App extends Component {
             const visibleImages = this.state.images.filter(image => {
                 if (image.tags) {
                     for (const searchTag of searchArray) {
-                        if (!image.tags.includes(searchTag)) {
+                        if (!image.tags.toLowerCase().includes(searchTag)) {
                             return false
                         }
                     }
