@@ -52,7 +52,7 @@ class App extends Component {
                 if (image.tags) {
                     const tags = image.tags.split(' ')
                     for (const searchTag of searchArray) {
-                        if (!tags.includes(searchTag)) {
+                        if (!image.tags.includes(searchTag)) {
                             return false
                         }
                     }
