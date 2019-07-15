@@ -10,7 +10,7 @@ class App extends Component {
     state = {
         images: [],
         visibleImages: [],
-        selectedImage: null
+        selectedImage: null,
     }
 
     componentDidMount() {
@@ -28,9 +28,13 @@ class App extends Component {
         }
         return (
             <div className="App">
-                <Header />
-                <PhotoUpload updateImages={(i) => this.updateImages(i)} />
-                <PhotoSearch setVisibleImages={(s) => this.setVisibleImages(s)} />
+                <div className="sticky">
+                    <Header />
+                    <div className="inputs">
+                        <PhotoUpload updateImages={(i) => this.updateImages(i)} />
+                        <PhotoSearch setVisibleImages={(s) => this.setVisibleImages(s)} />
+                    </div>
+                </div>
                 <PhotoGallery
                     className="photo-gallery" 
                     images={this.state.visibleImages}

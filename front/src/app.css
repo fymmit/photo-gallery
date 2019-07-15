@@ -11,11 +11,12 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-.photo-gallery {
+/* .photo-gallery {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row;
     justify-content: center;
-}
+} */
 
 .photo-div {
     display: inline-block;
@@ -41,9 +42,43 @@ body {
     object-fit: cover;
 }
 
+.photo-info {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
 .photo-info img {
     max-height: 60vh;
     max-width: 60vw;
+}
+
+.photo-info button {
+    height: 40px;
+    align-self: flex-end;
+}
+
+.tags {
+    margin-right: 20px;
+}
+
+.tags ul {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.inputs {
+    display: flex;
+    justify-content: space-around;
+    height: 35px;
+}
+
+.sticky {
+    z-index: 1;
+    position: sticky;
+    top: 0;
+    background: #0f0c0f;
+    height: 160px;
 }
 
 input {
@@ -58,4 +93,9 @@ input {
 
 .header-title {
     font-size: 3em;
+    margin: 15px;
+}
+
+.header-subtitle {
+    margin: 10px;
 }
