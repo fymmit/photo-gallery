@@ -36,7 +36,6 @@ class App extends Component {
                     </div>
                 </div>
                 <PhotoGallery
-                    className="photo-gallery" 
                     images={this.state.visibleImages}
                     selectImage={(i) => this.selectImage(i)} />
                 {photoInfo}

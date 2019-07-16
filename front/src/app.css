@@ -11,23 +11,47 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-/* .photo-gallery {
+.photo-gallery {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
-} */
+}
 
 .photo-div {
-    display: inline-block;
-    width: 25vh;
-    height: 25vh;
+    flex-grow: 18%;
+    width: 18%;
     padding: 5px;
     margin: 5px;
     border: 1px solid black;
     border-radius: 3px;
     transition: 0.5s;
     background: #221c22;
+}
+
+@media (max-width: 1200px) {
+    .photo-div {
+        flex-grow: 22%;
+        width: 22%;
+    }
+}
+@media (max-width: 1000px) {
+    .photo-div {
+        flex-grow: 30%;
+        width: 30%;
+    }
+}
+@media (max-width: 800px) {
+    .photo-div {
+        flex-grow: 45%;
+        width: 45%;
+    }
+}
+@media (max-width: 600px) {
+    .photo-div {
+        flex-grow: 90%;
+        width: 90%;
+    }
 }
 
 .photo-div:hover {

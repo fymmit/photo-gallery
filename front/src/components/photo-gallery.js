@@ -12,7 +12,7 @@ const PhotoGallery = (props) => {
         )
     })
     return(
-        <div>
+        <div className="photo-gallery">
             {images}
         </div>
     )
