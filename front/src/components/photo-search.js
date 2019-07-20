@@ -11,9 +11,13 @@ class PhotoSearch extends React.Component {
 
     render() {
         return (
-            <div>
-                Search:
-                <input onChange={this.handleInput} type="text" value={this.state.input} />
+            <div className="header-input-item">
+                <input
+                    className="text-input"
+                    onChange={this.handleInput}
+                    type="text"
+                    value={this.state.input}
+                    placeholder="Search" />
             </div>
         )
     }
