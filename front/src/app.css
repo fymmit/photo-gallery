@@ -6,7 +6,7 @@ body {
 }
 
 .App {
-    padding: 10px;
+    padding: 0 10px;
     color: #e5f7e5;
     font-family: 'Roboto', sans-serif;
 }
@@ -99,7 +99,19 @@ body {
 .inputs {
     display: flex;
     justify-content: space-around;
-    height: 35px;
+}
+
+@media (max-width: 600px) {
+    .inputs {
+        justify-content: space-between;
+    }
+    .header-input-item {
+        max-width: 200px;
+    }
+}
+
+.header-input-item {
+    align-self: flex-end;
 }
 
 .sticky {
@@ -110,9 +122,24 @@ body {
     height: 160px;
 }
 
+.row {
+    display: flex;
+}
+
+.text-input {
+    max-width: 100px;
+}
+
 input {
-    margin-left: 1em;
-    margin-bottom: 1em;
+    margin-bottom: 5px;
+}
+
+.p-right-sm {
+    padding-right: 5px;
+}
+
+.m-right-sm {
+    margin-right: 5px;
 }
 
 .header {
@@ -122,7 +149,7 @@ input {
 
 .header-title {
     font-size: 3em;
-    margin: 15px;
+    margin: 0;
 }
 
 .header-subtitle {

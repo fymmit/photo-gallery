@@ -14,12 +14,20 @@ class PhotoUpload extends React.Component {
 
     render() {
         return(
-            <form className="photo-upload" onSubmit={this.handleSubmit}>
-                <input type='file' name='image' ref={this.fileInput} />
-                Tags:
-                <input onChange={this.handleTagsInput} value={this.state.tagsInput} type='text' name='tags' />
-                <input type='submit' value='Upload'/>
-            </form>
+            <div className="header-input-item">
+                <form className="photo-upload" onSubmit={this.handleSubmit}>
+                    <input type='file' name='image' ref={this.fileInput} />
+                    <div className="row">
+                        <input
+                            className="text-input m-right-sm"
+                            onChange={this.handleTagsInput}
+                            value={this.state.tagsInput}
+                            type='text'
+                            placeholder='Tags' />
+                        <input type='submit' value='Upload' />
+                    </div>
+                </form>
+            </div>
         )
     }
 
