@@ -5,9 +5,13 @@ const PhotoInfo = (props) => {
     return(
         <>
             <div className="photo-info">
-                <Tags tags={props.image.tags} />
-                <img src={props.image.name} alt={props.image.name} />
-                <button onClick={props.reset}>Return to gallery</button>
+                <a href={props.image.name}>
+                    <img src={props.image.name} alt={props.image.name} />
+                </a>
+                <div className="col m-left-md">
+                    <Tags tags={props.image.tags} />
+                    <button onClick={props.reset}>Return to gallery</button>
+                </div>
             </div>
         </>
     )

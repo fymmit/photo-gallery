@@ -73,18 +73,17 @@ body {
 
 .photo-info {
     display: flex;
-    justify-content: space-around;
     margin-bottom: 10px;
+    max-width: 90vw;
 }
 
 .photo-info img {
-    max-height: 60vh;
-    max-width: 60vw;
+    max-height: calc(100vh - 175px);
+    max-width: 100%;
 }
 
 .photo-info button {
     height: 40px;
-    align-self: flex-end;
 }
 
 .tags {
@@ -122,6 +121,12 @@ body {
     height: 160px;
 }
 
+.col {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .row {
     display: flex;
 }
@@ -140,6 +145,10 @@ input {
 
 .m-right-sm {
     margin-right: 5px;
+}
+
+.m-left-md  {
+    margin-left: 15px;
 }
 
 .header {
