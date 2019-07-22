@@ -11,12 +11,17 @@ class App extends Component {
         images: [],
         visibleImages: [],
         selectedImage: null,
+        scrollPos: 0,
     }
 
     componentDidMount() {
         fetch('/images')
         .then(res => res.json())
         .then(images => this.setState({images, visibleImages: images}))
+    }
+
+    componentDidUpdate() {
+        window.scrollTo(0, this.state.scrollPos);
     }
     
     render() {
@@ -71,7 +76,7 @@ class App extends Component {
     selectImage = (imageName) => {
         if (imageName) {
             const selectedImage = this.state.images.find(image => image.name === imageName)
-            this.setState({ selectedImage, visibleImages: [] })
+            this.setState({ selectedImage, visibleImages: [], scrollPos: window.scrollY })
         } else {
             this.setState({ selectedImage: null, visibleImages: this.state.images })
         }
