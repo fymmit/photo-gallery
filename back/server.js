@@ -61,8 +61,11 @@ app.post('/images', (req, res) => {
 })
 
 app.delete('/images', (req, res) => {
-    db.deleteImage(req.body.name)
-    res.redirect('back')
+    db.deleteImage(req.body.name).then(response => {
+        res.status(200).send({
+            name: response
+        })
+    }).catch(err => res.sendStatus(500))
 })
 
 app.listen(port, () => {
