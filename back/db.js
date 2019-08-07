@@ -41,10 +41,13 @@ function getAll() {
 }
 
 function deleteImage(name) {
-    let sql = 'DELETE FROM images WHERE name = ?'
-    db.run(sql, name, function(err) {
-        if (err) throw err
-        console.log(`Row(s) deleted ${this.changes}`)
+    return new Promise((resolve, reject) => {
+        let sql = 'DELETE FROM images WHERE name = ?'
+        db.run(sql, name, function(err) {
+            if (err) reject()
+            console.log(`Row(s) deleted ${this.changes}`)
+            resolve(name)
+        })
     })
 }
 
