@@ -13,7 +13,8 @@ class Photo extends React.Component {
                     className='photo' 
                     src={this.props.name} 
                     alt={this.props.name} 
-                    onClick={this.handleClick} />
+                    onClick={this.handleClick}
+                    loading="lazy" />
             </div>
         )
     }
