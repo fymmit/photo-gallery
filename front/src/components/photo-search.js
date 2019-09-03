@@ -7,24 +7,32 @@ class PhotoSearch extends React.Component {
             input: ''
         }
         this.handleInput = this.handleInput.bind(this)
+	this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     render() {
         return (
             <div className="header-input-item">
-                <input
-                    className="text-input"
-                    onChange={this.handleInput}
-                    type="text"
-                    value={this.state.input}
-                    placeholder="Search" />
+		<form
+		    onSubmit={this.handleSubmit}>
+		    <input
+			className="text-input"
+			onChange={this.handleInput}
+			type="text"
+			value={this.state.input}
+			placeholder="Search" />
+		</form>
             </div>
         )
     }
 
     handleInput(e) {
         this.setState({ input: e.target.value })
-        this.props.setVisibleImages(e.target.value)
+    }
+
+    handleSubmit(e) {
+	e.preventDefault();
+	this.props.setVisibleImages(this.state.input);
     }
 }
 

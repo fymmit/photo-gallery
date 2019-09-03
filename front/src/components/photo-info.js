@@ -1,16 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Tags from './tags'
+import getTags from '../services/tag-fetcher';
 
-const PhotoInfo = (props) => {
+const PhotoInfo = ({ image, reset }) => {
+    const [tags, setTags] = useState([]);
+    useEffect(() => {
+        getTags(image.imageid).then(res => setTags(res));
+    }, [image]);
     return(
         <>
             <div className="photo-info">
-                <a href={props.image.name}>
-                    <img src={props.image.name} alt={props.image.name} />
+                <a href={image.name}>
+                    <img src={image.name} alt={image.name} />
                 </a>
                 <div className="col m-left-md">
-                    <Tags tags={props.image.tags} />
-                    <button onClick={props.reset}>Return to gallery</button>
+                    <Tags tags={tags} />
+                    <button onClick={reset}>Return to gallery</button>
                 </div>
             </div>
         </>
