@@ -8,12 +8,14 @@ class Photo extends React.Component {
 
     render() {
         return(
-            <div className="photo-div">
+            <div
+                className="photo-div"
+                onClick={this.handleClick}
+            >
                 <img 
                     className='photo' 
                     src={this.props.name} 
                     alt={this.props.name} 
-                    onClick={this.handleClick}
                     loading="lazy" />
             </div>
         )

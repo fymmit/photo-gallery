@@ -1,19 +1,20 @@
 import React from 'react'
 import Photo from './photo';
 
-const PhotoGallery = (props) => {
-    const reverse = props.images.slice()
-    const images = reverse.reverse().map(image => {
+const PhotoGallery = ({ images, selectImage }) => {
+    const reverse = images.slice()
+    const reversedImages = reverse.reverse().map(image => {
         return(
             <Photo 
                 name={image.name}
+                id={image.imageid}
                 key={image.name}
-                selectImage={props.selectImage} />
+                selectImage={selectImage} />
         )
     })
     return(
         <div className="photo-gallery">
-            {images}
+            {reversedImages}
         </div>
     )
 }

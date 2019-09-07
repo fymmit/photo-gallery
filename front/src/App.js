@@ -40,10 +40,11 @@ class App extends Component {
                         <PhotoSearch setVisibleImages={(s) => this.setVisibleImages(s)} />
                     </div>
                 </div>
-                <PhotoGallery
-                    images={this.state.visibleImages}
-                    selectImage={(i) => this.selectImage(i)} />
-                {photoInfo}
+                { photoInfo || 
+		    <PhotoGallery
+			images={this.state.visibleImages}
+			selectImage={(i) => this.selectImage(i)} />
+		}
             </div>
         );
     }
@@ -55,19 +56,13 @@ class App extends Component {
 
     setVisibleImages = (searchString) => {
         if (searchString) {
-            const searchArray = searchString.toLowerCase().split(' ').filter(tag => tag !== '')
-            const visibleImages = this.state.images.filter(image => {
-                if (image.tags) {
-                    for (const searchTag of searchArray) {
-                        if (!image.tags.toLowerCase().includes(searchTag)) {
-                            return false
-                        }
-                    }
-                    return true
-                }
-                return false
-            })
-            this.setState({ visibleImages, selectedImage: null })
+            const query = searchString.toLowerCase().split(' ').filter(tag => tag !==
+	    '').map((x, i) => i === 0 ? `?tags=${x}` : `&tags=${x}`).join('');
+	    fetch(`/images${query}`)
+		.then(res => res.json())
+		.then(json => {
+		    this.setState({ visibleImages: json, selectedImage: null })
+		})
         } else {
             this.setState({ visibleImages: this.state.images })
         }
@@ -76,9 +71,9 @@ class App extends Component {
     selectImage = (imageName) => {
         if (imageName) {
             const selectedImage = this.state.images.find(image => image.name === imageName)
-            this.setState({ selectedImage, visibleImages: [], scrollPos: window.scrollY })
+            this.setState({ selectedImage, scrollPos: window.scrollY })
         } else {
-            this.setState({ selectedImage: null, visibleImages: this.state.images })
+            this.setState({ selectedImage: null })
         }
     }
 }

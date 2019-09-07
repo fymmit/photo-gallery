@@ -7,6 +7,7 @@ const fs = require('fs')
 const port = 9000
 const files = require('./file-handler.js')
 const db = require('./db.js')
+const _ = require('ramda');
 
 app.use(express.static('photos'))
 app.use(express.static('../front/build'))
@@ -24,11 +25,22 @@ app.get('/', (req, res) => {
 })
 
 app.get('/images', async (req, res) => {
-    res.send(await db.getAll())
-})
+    const { tags } = req.query;
+    if (tags) return res.send(await db.getImagesByTags(_.flatten([tags])));
+    res.send(await db.getImages());
+});
+
+app.get('/tags/:id/images', async (req, res) => {
+    res.send(':)');
+});
+
+app.get('/images/:id/tags', async (req, res) => {
+    const { id } = req.params;
+    res.send(await db.getTagsByImageId(id));
+});
 
 app.post('/images', (req, res) => {
-    const tags = req.body.tags
+    const tags = req.body.tags.toLowerCase().split(' ');
     let path
     if (!req.files) {
         return res.status(400).send('No files were uploaded.');
@@ -45,12 +57,10 @@ app.post('/images', (req, res) => {
                 if (err) console.log(err)
             })
             if (fileType && (fileType.mime == 'image/jpeg' || fileType.mime == 'image/png')) {
-                db.insertImage(newName, tags, 0)
-                res.status(201).send({
-                    name: newName,
-                    tags,
-                    nsfw: 0
-                })
+                db.insertImageComplete(newName, tags);
+		res.status(201).send({
+		    name: newName,
+		});
             } else {
                 files.deleteFile(path)
             }
