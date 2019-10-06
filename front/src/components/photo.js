@@ -1,29 +1,35 @@
-import React from 'react'
+import React from 'react';
+import { func, string } from 'prop-types';
 
 class Photo extends React.Component {
-    constructor(props) {
-        super(props)
-        this.handleClick = this.handleClick.bind(this)
-    }
+	constructor(props) {
+		super(props);
+		this.handleClick = this.handleClick.bind(this);
+	}
 
-    render() {
-        return(
-            <div
-                className="photo-div"
-                onClick={this.handleClick}
-            >
-                <img 
-                    className='photo' 
-                    src={this.props.name} 
-                    alt={this.props.name} 
-                    loading="lazy" />
-            </div>
-        )
-    }
+	handleClick() {
+		const { selectImage, name } = this.props;
+		selectImage(name);
+	}
 
-    handleClick(e) {
-        this.props.selectImage(this.props.name)
-    }
+	render() {
+		const { name } = this.props;
+		return (
+			<div
+				className="photo-div"
+				onClick={this.handleClick}
+				role="button"
+				tabIndex={0}
+			>
+				<img className="photo" src={name} alt={name} loading="lazy" />
+			</div>
+		);
+	}
 }
 
-export default Photo
+Photo.propTypes = {
+	selectImage: func.isRequired,
+	name: string.isRequired,
+};
+
+export default Photo;
