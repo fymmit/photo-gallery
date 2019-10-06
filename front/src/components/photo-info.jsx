@@ -16,7 +16,9 @@ const PhotoInfo = ({ image, reset }) => {
 				</a>
 				<div className="col m-left-md">
 					<Tags tags={tags} />
-					<button onClick={reset}>Return to gallery</button>
+					<button onClick={reset} type="button">
+						Return to gallery
+					</button>
 				</div>
 			</div>
 		</>
