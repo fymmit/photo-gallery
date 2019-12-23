@@ -5,6 +5,7 @@ const _ = require('ramda');
 db.run('CREATE TABLE if not exists image(imageid INTEGER PRIMARY KEY, name text NOT NULL)');
 db.run('CREATE TABLE if not exists tag(tagid INTEGER PRIMARY KEY, tag text UNIQUE NOT NULL)');
 db.run('CREATE TABLE if not exists imagetag(fk_imageid INTEGER NOT NULL, fk_tagid INTEGER NOT NULL)');
+db.run('CREATE TABLE if not exists comment(commentid INTEGER PRIMARY KEY, author TEXT, comment TEXT, fk_imageid INTEGER NOT NULL)');
 
 const insertTags = (tags) => {
     return new Promise((resolve, reject) => {
@@ -135,6 +136,28 @@ function getTags() {
     });
 };
 
+const getComments = (fk_imageid) => {
+    return new Promise((res, rej) => {
+        let sql = `SELECT * FROM comment where fk_imageid=(?)`;
+        db.all(sql, [fk_imageid], function(err, rows) {
+            if (err) rej(err);
+            res(rows);
+        });
+    });
+};
+
+const insertComment = (author, comment, fk_imageid) => {
+    return new Promise((resolve, reject) => {
+        let sql = `
+            INSERT INTO comment (author, comment, fk_imageid)
+            VALUES (?, ?, ?)`;
+        db.run(sql, [author, comment, fk_imageid], function (err) {
+            if (err) reject(err);
+            resolve(this.lastID);
+        });
+    });
+};
+
 module.exports = {
     insertImage,
     getTagsByImageId,
@@ -144,5 +167,7 @@ module.exports = {
     insertTags,
     insertImageTags,
     insertImageComplete,
+    insertComment,
+    getComments,
 }
 
