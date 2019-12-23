@@ -27,9 +27,9 @@ module.exports = {
     'arrow-parens': 'off',
     'react/state-in-constructor': ['error', 'never'],
     'import/no-commonjs': 'error',
-    'indent': [2, 'tab'],
+    'indent': [1, 4],
     'no-tabs': 0,
-    'react/jsx-indent': [2, 'tab'],
-    'react/jsx-indent-props': [2, 'tab']
+    'react/jsx-indent': [1, 4],
+    'react/jsx-indent-props': [1, 4]
   },
 };
