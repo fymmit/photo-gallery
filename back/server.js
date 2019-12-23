@@ -4,7 +4,6 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const fileUpload = require('express-fileupload')
 const fs = require('fs')
-const port = 9000
 const files = require('./file-handler.js')
 const db = require('./db.js')
 const _ = require('ramda');
@@ -78,6 +77,26 @@ app.delete('/images', (req, res) => {
     }).catch(err => res.sendStatus(500))
 })
 
-app.listen(port, () => {
-    console.log('Listening on port', port)
-})
+app.get('/images/:id/comments', (req, res) => {
+    const { id } = req.params;
+    db.getComments(id).then(response => {
+        res.status(200).send(response);
+    }).catch(err => res.sendStatus(500));
+});
+
+app.post('/images/:id/comments', (req, res) => {
+    const { id } = req.params;
+    const { author, comment } = req.body;
+    console.log(author, comment, id);
+    db.insertComment(author, comment, id).then(response => {
+        res.status(200).send({
+            author,
+            comment,
+        })
+    }).catch(err => res.sendStatus(500));
+});
+
+const PORT = 9000;
+app.listen(PORT, () => {
+    console.log('Listening on port', PORT)
+});
