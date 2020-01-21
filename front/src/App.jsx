@@ -28,7 +28,7 @@ class App extends Component {
 	updateImages = image => {
 		const { images } = this.state;
 		const newImages = images.concat(image);
-		this.setState({ images: newImages, visibleImages: images });
+		this.setState({ images: newImages, visibleImages: newImages });
 	};
 
 	setVisibleImages = searchString => {

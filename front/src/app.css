@@ -74,7 +74,6 @@ body {
 .photo-info {
     display: flex;
     margin-bottom: 10px;
-    max-width: 90vw;
 }
 
 .photo-info img {
@@ -86,9 +85,9 @@ body {
     height: 40px;
 }
 
-.tags {
+/* .tags {
     margin-right: 20px;
-}
+} */
 
 .tags ul {
     max-height: 60vh;
@@ -163,4 +162,27 @@ input {
 
 .header-subtitle {
     margin: 10px;
+}
+
+.loading-spinner {
+    animation-name: spin;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
 }

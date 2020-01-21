@@ -1,9 +1,9 @@
 import React from 'react';
-import { string } from 'prop-types';
+import { arrayOf, shape, string } from 'prop-types';
 
 const Tags = ({ tags }) => {
 	if (tags.length == 0) return null;
-	const tagList = tags.map(tag => <li>{tag.tag}</li>);
+	const tagList = tags.map(tag => <li key={tag.tag}>{tag.tag}</li>);
 	return (
 		<div className="tags">
 			<span>Tags:</span>
@@ -13,7 +13,7 @@ const Tags = ({ tags }) => {
 };
 
 Tags.propTypes = {
-	tags: string.isRequired,
+	tags: arrayOf(shape(string.isRequired)).isRequired,
 };
 
 export default Tags;
