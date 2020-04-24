@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { func, shape, string, number, arrayOf } from 'prop-types';
 import Tags from './tags';
 import Comments from './comments';
@@ -15,7 +15,8 @@ const PhotoInfo = ({ images, reset }) => {
 	const [author, setAuthor] = useState('');
 	const [comment, setComment] = useState('');
 	const [image, setImage] = useState(null);
-	let { id } = useParams();
+	const { id } = useParams();
+	const history = useHistory();
 
 	useEffect(() => {
 		(async () => {
@@ -23,7 +24,11 @@ const PhotoInfo = ({ images, reset }) => {
 			const comments = await getComments(id);
 			setTags(tags);
 			setComments(comments);
-			setImage(images.find(i => i.imageid === Number(id)));
+			const selectedImage = images.find(i => i.imageid === Number(id));
+			if (selectedImage === undefined) {
+				history.push('/404');
+			}
+			setImage(selectedImage);
 			setLoading(false);
 		})()
 	}, [id]);

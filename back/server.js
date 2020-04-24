@@ -22,7 +22,7 @@ apiRouter.use(fileUpload({
 }))
 
 app.get('*', (req, res) => {
-    res.sendFile('index.html')
+    res.sendFile('index.html', { root: __dirname + '/../front/build' });
 });
 
 apiRouter.get('/images', async (req, res) => {
