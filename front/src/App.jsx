@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {
 	Switch,
-	Route
+	Route,
+	useHistory
 } from 'react-router-dom';
 import PhotoGallery from './components/photo-gallery';
 import PhotoUpload from './components/photo-upload';
@@ -16,6 +17,7 @@ const App = () => {
 	const [images, setImages] = useState([]);
 	const [visibleImages, setVisibleImages] = useState([]);
 	const [selectedImage, setSelectedImage] = useState(null);
+	const history = useHistory();
 
 	useEffect(() => {
 		(async () => {
@@ -73,7 +75,12 @@ const App = () => {
 							</Route>
 							<Route path="/">
 								<div>
-									Page not found.
+									You are lost.
+								</div>
+								<div>
+									<button onClick={() => history.push('/')}>
+										Go back
+									</button>
 								</div>
 							</Route>
 						</Switch>
