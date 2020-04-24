@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const apiRouter = express.Router();
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const fileUpload = require('express-fileupload')
@@ -10,35 +11,36 @@ const _ = require('ramda');
 
 app.use(express.static('photos'))
 app.use(express.static('../front/build'))
-app.use(cors())
-app.use(bodyParser.json())
-app.use(fileUpload({
+app.use('/api', apiRouter);
+apiRouter.use(cors())
+apiRouter.use(bodyParser.json())
+apiRouter.use(fileUpload({
     limits: {
         fileSize: 4 * 1024 * 1024
     },
     abortOnLimit: true
 }))
 
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
     res.sendFile('index.html')
-})
+});
 
-app.get('/images', async (req, res) => {
+apiRouter.get('/images', async (req, res) => {
     const { tags } = req.query;
     if (tags) return res.send(await db.getImagesByTags(_.flatten([tags])));
     res.send(await db.getImages());
 });
 
-app.get('/tags/:id/images', async (req, res) => {
+apiRouter.get('/tags/:id/images', async (req, res) => {
     res.send(':)');
 });
 
-app.get('/images/:id/tags', async (req, res) => {
+apiRouter.get('/images/:id/tags', async (req, res) => {
     const { id } = req.params;
     res.send(await db.getTagsByImageId(id));
 });
 
-app.post('/images', (req, res) => {
+apiRouter.post('/images', (req, res) => {
     const tags = req.body.tags.length > 0 ? req.body.tags.toLowerCase().split(' ') : null;
     let path
     if (!req.files) {
@@ -70,7 +72,7 @@ app.post('/images', (req, res) => {
     }
 })
 
-app.delete('/images', (req, res) => {
+apiRouter.delete('/images', (req, res) => {
     db.deleteImage(req.body.name).then(response => {
         res.status(200).send({
             name: response
@@ -78,14 +80,14 @@ app.delete('/images', (req, res) => {
     }).catch(err => res.sendStatus(500))
 })
 
-app.get('/images/:id/comments', (req, res) => {
+apiRouter.get('/images/:id/comments', (req, res) => {
     const { id } = req.params;
     db.getComments(id).then(response => {
         res.status(200).send(response);
     }).catch(err => res.sendStatus(500));
 });
 
-app.post('/images/:id/comments', (req, res) => {
+apiRouter.post('/images/:id/comments', (req, res) => {
     const { id } = req.params;
     const { author, comment } = req.body;
     console.log(author, comment, id);

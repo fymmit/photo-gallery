@@ -19,7 +19,7 @@ const App = () => {
 
 	useEffect(() => {
 		(async () => {
-			const images = await fetch('/images').then(res => res.json());
+			const images = await fetch('/api/images').then(res => res.json());
 			setImages(images);
 			setVisibleImages(images);
 			setLoading(false);
@@ -47,7 +47,7 @@ const App = () => {
 									.filter(tag => tag !== '')
 									.map((x, i) => (i === 0 ? `?tags=${x}` : `&tags=${x}`))
 									.join('');
-								fetch(`/images${query}`)
+								fetch(`/api/images${query}`)
 									.then(res => res.json())
 									.then(data => {
 										setVisibleImages(data);
@@ -70,6 +70,11 @@ const App = () => {
 							</Route>
 							<Route path="/image/:id">
 								<PhotoInfo images={images} reset={() => setSelectedImage(null)} />
+							</Route>
+							<Route path="/">
+								<div>
+									Page not found.
+								</div>
 							</Route>
 						</Switch>
 					</div>

@@ -3,7 +3,6 @@ import { arrayOf, shape, func } from 'prop-types';
 import Photo from './photo';
 
 const PhotoGallery = ({ images, selectImage }) => {
-	console.log(images);
 	const reversedImages = images
 		.slice()
 		.reverse()
