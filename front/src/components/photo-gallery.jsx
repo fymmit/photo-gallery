@@ -3,14 +3,14 @@ import { arrayOf, shape, func } from 'prop-types';
 import Photo from './photo';
 
 const PhotoGallery = ({ images, selectImage }) => {
-	const reverse = images.slice();
-	const reversedImages = reverse
+	console.log(images);
+	const reversedImages = images
+		.slice()
 		.reverse()
 		.map(image => (
 			<Photo
-				name={image.name}
-				id={image.imageid}
-				key={image.name}
+				image={image}
+				key={image.imageid}
 				selectImage={selectImage}
 			/>
 		));

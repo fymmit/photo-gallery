@@ -39,7 +39,7 @@ app.get('/images/:id/tags', async (req, res) => {
 });
 
 app.post('/images', (req, res) => {
-    const tags = req.body.tags.toLowerCase().split(' ');
+    const tags = req.body.tags.length > 0 ? req.body.tags.toLowerCase().split(' ') : null;
     let path
     if (!req.files) {
         return res.status(400).send('No files were uploaded.');
@@ -56,10 +56,11 @@ app.post('/images', (req, res) => {
                 if (err) console.log(err)
             })
             if (fileType && (fileType.mime == 'image/jpeg' || fileType.mime == 'image/png')) {
-                db.insertImageComplete(newName, tags);
-		res.status(201).send({
-		    name: newName,
-		});
+                const imageid = await db.insertImageComplete(newName, tags);
+                res.status(201).send({
+                    name: newName,
+                    imageid
+                });
             } else {
                 files.deleteFile(path)
             }

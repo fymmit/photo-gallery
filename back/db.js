@@ -67,8 +67,11 @@ const insertImageTags = (imageId, tagIds) => {
 
 const insertImageComplete = async (name, tags) => {
     const imageId = await insertImage(name);
-    const tagIds = await insertTags(tags);
-    insertImageTags(imageId, tagIds);
+    if (tags !== null) {
+        const tagIds = await insertTags(tags);
+        await insertImageTags(imageId, tagIds);
+    }
+    return imageId;
 }
 
 function getImages() {
