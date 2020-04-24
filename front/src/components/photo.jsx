@@ -1,5 +1,6 @@
 import React from 'react';
-import { func, string } from 'prop-types';
+import { func, string, number, shape } from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class Photo extends React.Component {
 	constructor(props) {
@@ -8,12 +9,12 @@ class Photo extends React.Component {
 	}
 
 	handleClick() {
-		const { selectImage, name } = this.props;
-		selectImage(name);
+		const { selectImage, image } = this.props;
+		selectImage(image);
 	}
 
 	render() {
-		const { name } = this.props;
+		const { image } = this.props;
 		return (
 			<div
 				className="photo-div"
@@ -21,7 +22,10 @@ class Photo extends React.Component {
 				role="button"
 				tabIndex={0}
 			>
-				<img className="photo" src={name} alt={name} loading="lazy" />
+				<Link to={`/image/${image.imageid}`}>
+				{/* <Link to={`/image/${image.imageid}`}> */}
+					<img className="photo" src={image.name} alt={image.name} loading="lazy" />
+				</Link>
 			</div>
 		);
 	}
@@ -29,7 +33,7 @@ class Photo extends React.Component {
 
 Photo.propTypes = {
 	selectImage: func.isRequired,
-	name: string.isRequired,
+	image: shape({ name: string.isRequired, imageid: number.isRequired }).isRequired,
 };
 
 export default Photo;

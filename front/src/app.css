@@ -5,6 +5,11 @@ body {
     background: #0f0c0f;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .App {
     padding: 0 10px;
     color: #e5f7e5;
@@ -77,8 +82,7 @@ body {
 }
 
 .photo-info img {
-    max-height: calc(100vh - 175px);
-    max-width: 100%;
+    max-width: calc(80vw);
 }
 
 .photo-info button {
