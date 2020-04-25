@@ -17,6 +17,7 @@ const PhotoInfo = ({ images, setSearchString }) => {
   const [image, setImage] = useState(null);
   const [prevImage, setPrevImage] = useState(null);
   const [nextImage, setNextImage] = useState(null);
+  const [fullSize, setFullSize] = useState(false);
   const { id } = useParams();
   const history = useHistory();
 
@@ -67,7 +68,12 @@ const PhotoInfo = ({ images, setSearchString }) => {
               >
                 <FontAwesomeIcon icon={faAngleLeft} size="2x" />
               </Link>
-              <img src={`/${image.name}`} alt={image.name} />
+              <img
+                className={fullSize ? "full-size-pic" : "fit-size"}
+                src={`/${image.name}`}
+                alt={image.name}
+                onClick={() => setFullSize((prev) => !prev)}
+              />
               <Link
                 className="photo-info-arrow"
                 to={

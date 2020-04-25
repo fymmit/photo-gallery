@@ -91,11 +91,6 @@ a {
   width: 100%;
 }
 
-.photo-info img {
-  max-width: 90%;
-  max-height: 80vh;
-}
-
 .photo-info-arrow {
   background: var(--hl-color);
   width: 25px;
@@ -107,6 +102,18 @@ a {
 .photo-info-arrow:hover {
   opacity: 0.5;
   cursor: pointer;
+}
+
+.full-size-pic {
+  height: unset;
+  max-width: 90%;
+  cursor: zoom-out;
+}
+
+.fit-size {
+  max-width: 90%;
+  max-height: 80vh;
+  cursor: zoom-in;
 }
 
 .tags {
