@@ -150,6 +150,7 @@ a {
   padding: 4px;
   color: var(--text-color);
   margin-right: 5px;
+  margin-bottom: 0;
 }
 
 #author-input {
