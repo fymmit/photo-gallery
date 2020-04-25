@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useHistory, Link } from "react-router-dom";
-import { func, shape, string, number, arrayOf } from "prop-types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
-import Tags from "./tags";
-import Comments from "./comments";
-import Loading from "./loading";
-import getTags from "../services/tag-fetcher";
-import getComments from "./../services/comment-fetcher";
-import postComment from "./../services/comment-poster";
+import React, { useEffect, useState } from 'react';
+import { useParams, useHistory, Link } from 'react-router-dom';
+import { func, shape, string, number, arrayOf } from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import Tags from './tags';
+import Comments from './comments';
+import Loading from './loading';
+import getTags from '../services/tag-fetcher';
+import getComments from './../services/comment-fetcher';
+import postComment from './../services/comment-poster';
 
 const PhotoInfo = ({ images, setSearchString }) => {
   const [loading, setLoading] = useState(true);
@@ -29,7 +29,7 @@ const PhotoInfo = ({ images, setSearchString }) => {
       setComments(comments);
       const selectedImage = images.findIndex((i) => i.imageid === Number(id));
       if (selectedImage === -1) {
-        history.push("/404");
+        history.push('/404');
       }
       setImage(images[selectedImage]);
       setNextImage(selectedImage > 0 ? selectedImage - 1 : -1);
@@ -63,13 +63,13 @@ const PhotoInfo = ({ images, setSearchString }) => {
               <Link
                 className="photo-info-arrow"
                 to={
-                  prevImage !== -1 ? `/image/${images[prevImage].imageid}` : "/"
+                  prevImage !== -1 ? `/image/${images[prevImage].imageid}` : '/'
                 }
               >
                 <FontAwesomeIcon icon={faAngleLeft} size="2x" />
               </Link>
               <img
-                className={fullSize ? "full-size-pic" : "fit-size"}
+                className={fullSize ? 'full-size-pic' : 'fit-size'}
                 src={`/${image.name}`}
                 alt={image.name}
                 onClick={() => setFullSize((prev) => !prev)}
@@ -77,7 +77,7 @@ const PhotoInfo = ({ images, setSearchString }) => {
               <Link
                 className="photo-info-arrow"
                 to={
-                  nextImage !== -1 ? `/image/${images[nextImage].imageid}` : "/"
+                  nextImage !== -1 ? `/image/${images[nextImage].imageid}` : '/'
                 }
               >
                 <FontAwesomeIcon icon={faAngleRight} size="2x" />
@@ -93,7 +93,7 @@ const PhotoInfo = ({ images, setSearchString }) => {
 
 PhotoInfo.propTypes = {
   images: arrayOf(
-    shape({ name: string.isRequired, imageid: number.isRequired })
+    shape({ name: string.isRequired, imageid: number.isRequired }),
   ).isRequired,
 };
 

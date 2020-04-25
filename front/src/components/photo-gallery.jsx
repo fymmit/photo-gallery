@@ -1,6 +1,6 @@
-import React from "react";
-import { arrayOf, shape, func } from "prop-types";
-import Photo from "./photo";
+import React from 'react';
+import { arrayOf, shape, func } from 'prop-types';
+import Photo from './photo';
 
 const PhotoGallery = ({ images }) => {
   const reversedImages = images

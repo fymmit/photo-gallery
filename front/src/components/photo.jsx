@@ -1,6 +1,6 @@
-import React from "react";
-import { func, string, number, shape } from "prop-types";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { func, string, number, shape } from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class Photo extends React.Component {
   constructor(props) {

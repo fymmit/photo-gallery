@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { arrayOf, shape, string } from "prop-types";
-import CommentForm from "./comment-form";
+import React, { useEffect, useState } from 'react';
+import { arrayOf, shape, string } from 'prop-types';
+import CommentForm from './comment-form';
 
 const Comments = ({ comments: propsComments, postComment }) => {
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
     setComments(
-      propsComments.slice().sort((a, b) => (a.commentid > b.commentid ? -1 : 1))
+      propsComments
+        .slice()
+        .sort((a, b) => (a.commentid > b.commentid ? -1 : 1)),
     );
   }, [propsComments]);
 
@@ -33,7 +35,7 @@ const Comments = ({ comments: propsComments, postComment }) => {
 
 Comments.propTypes = {
   comments: arrayOf(
-    shape({ author: string.isRequired, comment: string.isRequired })
+    shape({ author: string.isRequired, comment: string.isRequired }),
   ).isRequired,
 };
 

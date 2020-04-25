@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 const CommentForm = ({ postComment }) => {
-  const [author, setAuthor] = useState("");
-  const [comment, setComment] = useState("");
+  const [author, setAuthor] = useState('');
+  const [comment, setComment] = useState('');
 
   const handleSubmit = () => {
     postComment({ author, comment }).then(() => {
-      setComment("");
-      setAuthor("");
+      setComment('');
+      setAuthor('');
     });
   };
 
