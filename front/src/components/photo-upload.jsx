@@ -37,7 +37,7 @@ const PhotoUpload = ({ updateImages, pasted }) => {
             type="text"
             placeholder="Tags"
           />
-          <input type="submit" value="Upload" />
+          <input className="button" type="submit" value="Upload" />
         </div>
       </form>
     </div>

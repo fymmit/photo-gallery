@@ -26,6 +26,7 @@ const CommentForm = ({ postComment }) => {
         onChange={({ target }) => setAuthor(target.value)}
         autoComplete="off"
         onKeyDown={handleEnterKey}
+        className="text-input"
       />
       <input
         type="text"
@@ -36,8 +37,9 @@ const CommentForm = ({ postComment }) => {
         onChange={({ target }) => setComment(target.value)}
         autoComplete="off"
         onKeyDown={handleEnterKey}
+        className="text-input"
       />
-      <button id="comment-send" onClick={handleSubmit}>
+      <button className="button" onClick={handleSubmit}>
         Send
       </button>
     </div>

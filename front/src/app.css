@@ -17,7 +17,6 @@ a {
 }
 
 .App {
-  /* padding: 0 10px; */
   color: var(--text-color);
   font-family: "Roboto", sans-serif;
 }
@@ -84,7 +83,6 @@ a {
 
 .photo-info {
   display: flex;
-  /* justify-content: center; */
 }
 
 .photo-info .col {
@@ -131,8 +129,6 @@ a {
 #comment-section {
   margin: 10px 0;
   border: solid var(--hl-color) 2px;
-  /* width: 90%;
-  align-self: center; */
 }
 
 #comment-section #comments-header {
@@ -151,14 +147,8 @@ a {
   margin: 5px;
 }
 
-#comment-form input {
-  background: var(--bg-color);
-  border: 0;
-  border-bottom: 2px solid var(--hl-color);
-  padding: 4px;
-  color: var(--text-color);
+#comment-form .text-input {
   margin-right: 5px;
-  margin-bottom: 0;
 }
 
 #author-input {
@@ -169,7 +159,11 @@ a {
   flex-grow: 1;
 }
 
-#comment-send {
+.bold {
+  font-weight: bold;
+}
+
+.button {
   background: var(--hl-color);
   border: 0;
   border-radius: 4px;
@@ -181,7 +175,7 @@ a {
 .inputs {
   display: flex;
   justify-content: space-around;
-  margin: 0 10px;
+  margin: 0 5px;
 }
 
 @media (max-width: 600px) {
@@ -214,11 +208,20 @@ a {
   display: flex;
 }
 
-.text-input {
+.inputs .text-input {
   max-width: 100px;
 }
 
-input {
+.text-input {
+  background: var(--bg-color);
+  border: 0;
+  border-bottom: 2px solid var(--hl-color);
+  padding: 4px;
+  color: var(--text-color);
+  margin-bottom: 0;
+}
+
+input[type="file"] {
   margin-bottom: 5px;
 }
 
