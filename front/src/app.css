@@ -1,192 +1,271 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+
+:root {
+  --bg-color: #0f0c0f;
+  --text-color: #e5f7e5;
+  --hl-color: #221c22;
+}
 
 body {
-    margin: 0;
-    background: #0f0c0f;
+  margin: 0;
+  background: var(--bg-color);
 }
 
 a {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
 .App {
-    padding: 0 10px;
-    color: #e5f7e5;
-    font-family: 'Roboto', sans-serif;
+  /* padding: 0 10px; */
+  color: var(--text-color);
+  font-family: "Roboto", sans-serif;
 }
 
 .photo-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .photo-div {
-    flex-grow: 18%;
-    width: 18%;
-    height: 18vw;
-    padding: 5px;
-    margin: 5px;
-    border: 1px solid black;
-    border-radius: 3px;
-    transition: 0.5s;
-    background: #221c22;
+  flex-grow: 18%;
+  width: 18%;
+  height: 18vw;
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid black;
+  border-radius: 3px;
+  transition: 0.5s;
+  background: var(--hl-color);
 }
 
 @media (max-width: 1200px) {
-    .photo-div {
-        flex-grow: 22%;
-        width: 22%;
-        height: 22vw;
-    }
+  .photo-div {
+    flex-grow: 22%;
+    width: 22%;
+    height: 22vw;
+  }
 }
 @media (max-width: 1000px) {
-    .photo-div {
-        flex-grow: 30%;
-        width: 30%;
-        height: 30vw;
-    }
+  .photo-div {
+    flex-grow: 30%;
+    width: 30%;
+    height: 30vw;
+  }
 }
 @media (max-width: 800px) {
-    .photo-div {
-        flex-grow: 45%;
-        width: 45%;
-        height: 45vw;
-    }
+  .photo-div {
+    flex-grow: 45%;
+    width: 45%;
+    height: 45vw;
+  }
 }
 @media (max-width: 600px) {
-    .photo-div {
-        flex-grow: 90%;
-        width: 90%;
-        height: 90vw;
-    }
+  .photo-div {
+    flex-grow: 90%;
+    width: 90%;
+    height: 90vw;
+  }
 }
 
 .photo-div:hover {
-    opacity: 0.7;
-    cursor: pointer;
-    transform: scale(1.05);
+  opacity: 0.7;
+  cursor: pointer;
+  transform: scale(1.05);
 }
 
 .photo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .photo-info {
-    display: flex;
-    margin-bottom: 10px;
+  display: flex;
+  /* justify-content: center; */
+}
+
+.photo-info .col {
+  width: 100%;
 }
 
 .photo-info img {
-    max-width: calc(80vw);
+  max-width: 90%;
+  max-height: 80vh;
 }
 
-.photo-info button {
-    height: 40px;
+.photo-info-arrow {
+  background: var(--hl-color);
+  width: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* .tags {
-    margin-right: 20px;
-} */
+.photo-info-arrow:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
 
-.tags ul {
-    max-height: 60vh;
-    overflow-y: auto;
+.tags {
+  margin-right: 20px;
+}
+
+.tag {
+  background: var(--hl-color);
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin: 0 5px;
+}
+
+#comment-section {
+  margin: 10px 0;
+  border: solid var(--hl-color) 2px;
+  /* width: 90%;
+  align-self: center; */
+}
+
+#comment-section #comments-header {
+  background: var(--hl-color);
+  padding: 10px;
+  font-weight: bold;
+  font-size: large;
+}
+
+.comment {
+  margin: 5px;
+}
+
+#comment-form {
+  display: flex;
+  margin: 5px;
+}
+
+#comment-form input {
+  background: var(--bg-color);
+  border: 0;
+  border-bottom: 2px solid var(--hl-color);
+  padding: 4px;
+  color: var(--text-color);
+  margin-right: 5px;
+}
+
+#author-input {
+  width: 75px;
+}
+
+#comment-input {
+  flex-grow: 1;
+}
+
+#comment-send {
+  background: var(--hl-color);
+  border: 0;
+  border-radius: 4px;
+  padding: 4px 12px;
+  color: var(--text-color);
+  font-weight: bold;
 }
 
 .inputs {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
+  margin: 0 10px;
 }
 
 @media (max-width: 600px) {
-    .inputs {
-        justify-content: space-between;
-    }
-    .header-input-item {
-        max-width: 200px;
-    }
+  .inputs {
+    justify-content: space-between;
+  }
+  .header-input-item {
+    max-width: 200px;
+  }
 }
 
 .header-input-item {
-    align-self: flex-end;
+  align-self: flex-end;
 }
 
 .sticky {
-    z-index: 1;
-    position: sticky;
-    top: 0;
-    background: #0f0c0f;
-    height: 160px;
+  z-index: 1;
+  position: sticky;
+  top: 0;
+  background: #0f0c0f;
+  height: 160px;
 }
 
 .col {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
 }
 
 .row {
-    display: flex;
+  display: flex;
 }
 
 .text-input {
-    max-width: 100px;
+  max-width: 100px;
 }
 
 input {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 
 .p-right-sm {
-    padding-right: 5px;
+  padding-right: 5px;
 }
 
 .m-right-sm {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 
-.m-left-md  {
-    margin-left: 15px;
+.m-left-md {
+  margin-left: 15px;
+}
+
+.m-b-sm {
+  margin-bottom: 5px;
 }
 
 .header {
-    text-align: center;
-    font-variant: small-caps;
+  text-align: center;
+  font-variant: small-caps;
 }
 
 .header-title {
-    font-size: 3em;
-    margin: 0;
+  font-size: 3em;
+  margin: 0;
 }
 
 .header-subtitle {
-    margin: 10px;
+  margin: 10px;
 }
 
 .loading-spinner {
-    animation-name: spin;
-    animation-duration: 3s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
+  animation-name: spin;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
 
 .centered {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.j-c-sb {
+  justify-content: space-between;
 }
 
 @keyframes spin {
-    from {
-        transform:rotate(0deg);
-    }
-    to {
-        transform:rotate(360deg);
-    }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
