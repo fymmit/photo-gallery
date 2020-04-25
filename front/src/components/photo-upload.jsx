@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
-import { func } from "prop-types";
-import uploadImage from "../services/photo-uploader";
+import React, { useState, useEffect, useRef } from 'react';
+import { func } from 'prop-types';
+import uploadImage from '../services/photo-uploader';
 
 const PhotoUpload = ({ updateImages, pasted }) => {
-  const [tagsInput, setTagsInput] = useState("");
-  const [fileName, setFileName] = useState("");
+  const [tagsInput, setTagsInput] = useState('');
+  const [fileName, setFileName] = useState('');
   const fileInput = useRef();
 
   useEffect(() => {
@@ -27,9 +27,9 @@ const PhotoUpload = ({ updateImages, pasted }) => {
     const file = fileInput.current.files[0];
     const tags = tagsInput;
     uploadImage(file, tags).then((res) => updateImages(res));
-    setTagsInput("");
+    setTagsInput('');
     fileInput.current.value = null;
-    setFileName("");
+    setFileName('');
   };
 
   return (

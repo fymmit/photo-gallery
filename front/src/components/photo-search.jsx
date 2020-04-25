@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUndo } from "@fortawesome/free-solid-svg-icons";
+import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUndo } from '@fortawesome/free-solid-svg-icons';
 
 const PhotoSearch = ({ setSearchString, searchString }) => {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
   const handleInput = ({ target }) => {
     setInput(target.value);
   };
@@ -31,7 +31,7 @@ const PhotoSearch = ({ setSearchString, searchString }) => {
       <button
         className="button"
         onClick={() => {
-          setSearchString("");
+          setSearchString('');
         }}
       >
         <FontAwesomeIcon icon={faUndo} />
