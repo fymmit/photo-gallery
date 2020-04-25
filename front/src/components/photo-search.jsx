@@ -1,48 +1,33 @@
-import React from 'react';
-import { func } from 'prop-types';
+import React, { useState, useEffect } from "react";
 
-class PhotoSearch extends React.Component {
-	constructor(props) {
-		super(props);
-		this.handleInput = this.handleInput.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-	}
+const PhotoSearch = ({ setSearchString, searchString }) => {
+  const [input, setInput] = useState("");
+  const handleInput = ({ target }) => {
+    setInput(target.value);
+  };
 
-	state = {
-		input: '',
-	};
+  useEffect(() => {
+    setInput(searchString);
+  }, [searchString]);
 
-	handleInput(e) {
-		this.setState({ input: e.target.value });
-	}
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSearchString(input);
+  };
 
-	handleSubmit(e) {
-		e.preventDefault();
-		const { setVisibleImages } = this.props;
-		const { input } = this.state;
-		setVisibleImages(input);
-	}
-
-	render() {
-		const { input } = this.state;
-		return (
-			<div className="header-input-item">
-				<form onSubmit={this.handleSubmit}>
-					<input
-						className="text-input"
-						onChange={this.handleInput}
-						type="text"
-						value={input}
-						placeholder="Search"
-					/>
-				</form>
-			</div>
-		);
-	}
-}
-
-PhotoSearch.propTypes = {
-	setVisibleImages: func.isRequired,
+  return (
+    <div className="header-input-item">
+      <form onSubmit={handleSubmit}>
+        <input
+          className="text-input"
+          onChange={handleInput}
+          type="text"
+          value={input}
+          placeholder="Search"
+        />
+      </form>
+    </div>
+  );
 };
 
 export default PhotoSearch;

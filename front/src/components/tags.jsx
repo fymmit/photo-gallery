@@ -1,19 +1,16 @@
-import React from 'react';
-import { arrayOf, shape, string } from 'prop-types';
+import React from "react";
+import { Link } from "react-router-dom";
 
-const Tags = ({ tags }) => {
-	if (tags.length == 0) return null;
-	const tagList = tags.map(tag => <li key={tag.tag}>{tag.tag}</li>);
-	return (
-		<div className="tags">
-			<span>Tags:</span>
-			<ul>{tagList}</ul>
-		</div>
-	);
-};
-
-Tags.propTypes = {
-	tags: arrayOf(shape(string.isRequired)).isRequired,
+const Tags = ({ tags, search }) => {
+  if (tags.length == 0) return null;
+  const tagList = tags.map((tag) => (
+    <Link key={tag.tag} to="/">
+      <span className="tag" key={tag.tag} onClick={() => search(tag.tag)}>
+        {tag.tag}
+      </span>
+    </Link>
+  ));
+  return <div className="tags centered m-b-sm">{tagList}</div>;
 };
 
 export default Tags;
