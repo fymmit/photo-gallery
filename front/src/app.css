@@ -110,7 +110,8 @@ a {
 }
 
 .tags {
-  margin-right: 20px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .tag {
