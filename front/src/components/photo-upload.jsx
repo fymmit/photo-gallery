@@ -1,60 +1,51 @@
-import React from 'react';
-import { func } from 'prop-types';
-import uploadImage from '../services/photo-uploader';
+import React, { useState, useEffect, useRef } from "react";
+import { func } from "prop-types";
+import uploadImage from "../services/photo-uploader";
 
-class PhotoUpload extends React.Component {
-	constructor(props) {
-		super(props);
-		this.handleTagsInput = this.handleTagsInput.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.fileInput = React.createRef();
-	}
+const PhotoUpload = ({ updateImages, pasted }) => {
+  const [tagsInput, setTagsInput] = useState("");
+  const fileInput = useRef();
 
-	state = {
-		tagsInput: '',
-	};
+  useEffect(() => {
+    if (pasted && pasted.length > 0) {
+      fileInput.current.files = pasted;
+    }
+  }, [pasted]);
 
-	handleTagsInput(event) {
-		this.setState({ tagsInput: event.target.value });
-	}
+  const handleTagsInput = ({ target }) => {
+    setTagsInput(target.value);
+  };
 
-	handleSubmit(event) {
-		event.preventDefault();
-		const { tagsInput } = this.state;
-		const { updateImages } = this.props;
-		const file = this.fileInput.current.files[0];
-		const tags = tagsInput;
-		uploadImage(file, tags).then(res => updateImages(res));
-		this.setState({
-			tagsInput: '',
-		});
-		this.fileInput.current.value = null;
-	}
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const file = fileInput.current.files[0];
+    const tags = tagsInput;
+    uploadImage(file, tags).then((res) => updateImages(res));
+    setTagsInput("");
+    fileInput.current.value = null;
+  };
 
-	render() {
-		const { tagsInput } = this.state;
-		return (
-			<div className="header-input-item">
-				<form className="photo-upload" onSubmit={this.handleSubmit}>
-					<input type="file" name="image" ref={this.fileInput} />
-					<div className="row">
-						<input
-							className="text-input m-right-sm"
-							onChange={this.handleTagsInput}
-							value={tagsInput}
-							type="text"
-							placeholder="Tags"
-						/>
-						<input type="submit" value="Upload" />
-					</div>
-				</form>
-			</div>
-		);
-	}
-}
+  return (
+    <div className="header-input-item">
+      <form className="photo-upload" onSubmit={handleSubmit}>
+        <input type="file" name="image" ref={fileInput} />
+        <div className="row">
+          <input
+            className="text-input m-right-sm"
+            onChange={handleTagsInput}
+            value={tagsInput}
+            type="text"
+            placeholder="Tags"
+          />
+          <input type="submit" value="Upload" />
+        </div>
+      </form>
+    </div>
+  );
+};
 
 PhotoUpload.propTypes = {
-	updateImages: func.isRequired,
+  updateImages: func.isRequired,
 };
 
 export default PhotoUpload;

@@ -13,6 +13,7 @@ const App = () => {
   const [images, setImages] = useState([]);
   const [visibleImages, setVisibleImages] = useState([]);
   const [searchString, setSearchString] = useState("");
+  const [pastedFiles, setPastedFiles] = useState(undefined);
   const history = useHistory();
 
   useEffect(() => {
@@ -51,7 +52,14 @@ const App = () => {
   };
 
   return (
-    <div className="App">
+    <div
+      className="App"
+      onPaste={({ clipboardData }) => {
+        if (clipboardData.files.length > 0) {
+          setPastedFiles(clipboardData.files);
+        }
+      }}
+    >
       <div className="sticky">
         <Header />
         <div className="inputs">
@@ -61,6 +69,7 @@ const App = () => {
               setImages(newImages);
               setVisibleImages(newImages);
             }}
+            pasted={pastedFiles}
           />
           <PhotoSearch
             setSearchString={setSearchString}
