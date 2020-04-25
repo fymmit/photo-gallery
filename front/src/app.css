@@ -170,12 +170,27 @@ a {
   padding: 4px 12px;
   color: var(--text-color);
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .inputs {
   display: flex;
   justify-content: space-around;
   margin: 0 5px;
+}
+
+.hidden {
+  display: none;
+}
+
+#file-name {
+  width: 100px;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 @media (max-width: 600px) {
