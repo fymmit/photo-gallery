@@ -27,6 +27,10 @@ app.get('*', (req, res) => {
   res.sendFile('index.html', { root: __dirname + '/../front/build' });
 });
 
+apiRouter.get('/health', (req, res) => {
+  res.sendStatus(200);
+});
+
 apiRouter.get('/images', async (req, res) => {
   const { tags } = req.query;
   if (tags) return res.send(await db.getImagesByTags(_.flatten([tags])));
