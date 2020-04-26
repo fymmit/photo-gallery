@@ -10,6 +10,7 @@ const PhotoUpload = ({ updateImages, pasted }) => {
   useEffect(() => {
     if (pasted && pasted.length > 0) {
       fileInput.current.files = pasted;
+      setFileNameWithChecks();
     }
   }, [pasted]);
 
