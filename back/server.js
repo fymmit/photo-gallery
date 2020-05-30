@@ -48,7 +48,10 @@ apiRouter.get('/images/:id/tags', async (req, res) => {
 
 apiRouter.post('/images', (req, res) => {
   const tags =
-    req.body.tags.length > 0 ? req.body.tags.toLowerCase().split(' ') : null;
+    req.body.tags.length > 0
+      ? req.body.tags.toLowerCase().split(' ')
+        .filter((v, i, a) => a.indexOf(v) === i)
+      : null;
   let path;
   if (!req.files) {
     return res.status(400).send('No files were uploaded.');
