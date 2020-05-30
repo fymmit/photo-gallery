@@ -63,7 +63,7 @@ const PhotoInfo = ({ images, setSearchString }) => {
         reject();
       }
     });
-  }
+  };
 
   return (
     <div className="photo-info">
@@ -72,7 +72,11 @@ const PhotoInfo = ({ images, setSearchString }) => {
       ) : (
         <>
           <div className="col">
-            <Tags tags={tags} search={setSearchString} postTags={handlePostTags} />
+            <Tags
+              tags={tags}
+              search={setSearchString}
+              postTags={handlePostTags}
+            />
             <div className="row j-c-sb">
               <Link
                 className="photo-info-arrow"
