@@ -5,11 +5,9 @@ const postTags = (imageId, tags) => {
     .toLowerCase()
     .split(' ')
     .filter((v, i, a) => a.indexOf(v) === i);
-  return axios
-    .post(`/api/images/${imageId}/tags`, {
-      tags: tagArray,
-    })
-    .then((res) => res.data);
+  return axios.post(`/api/images/${imageId}/tags`, {
+    tags: tagArray,
+  });
 };
 
 export default postTags;

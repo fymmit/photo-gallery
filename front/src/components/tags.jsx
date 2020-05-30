@@ -33,12 +33,10 @@ const Tags = ({ tags, search, postTags }) => {
             onKeyDown={({ keyCode }) => {
               if (keyCode === 13) {
                 setLoading(true);
-                postTags(input).then(() => {
-                  setLoading(false);
-                });
+                postTags(input).finally(() => setLoading(false));
                 setInput('');
                 setAddingNewTag(false);
-              } else if (keyCode === 13) {
+              } else if (keyCode === 27) {
                 setInput('');
                 setAddingNewTag(false);
               }

@@ -129,7 +129,7 @@ apiRouter.post('/images/:id/tags', async (req, res) => {
     (tag) => oldTags.find((ot) => ot.tag === tag) === undefined,
   );
   if (newTags.length === 0) {
-    res.sendStatus(400);
+    return res.sendStatus(400);
   }
 
   db.insertTags(newTags)

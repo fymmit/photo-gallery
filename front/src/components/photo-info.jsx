@@ -55,10 +55,12 @@ const PhotoInfo = ({ images, setSearchString }) => {
   const handlePostTags = (newTags) => {
     return new Promise((resolve, reject) => {
       if (newTags.length > 0) {
-        postTags(id, newTags).then((res) => {
-          setTags(tags.concat(res.tags));
-          resolve();
-        });
+        postTags(id, newTags)
+          .then(({ data }) => {
+            setTags(tags.concat(data.tags));
+            resolve();
+          })
+          .catch(() => reject());
       } else {
         reject();
       }
