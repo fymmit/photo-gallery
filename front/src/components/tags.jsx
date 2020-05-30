@@ -16,40 +16,38 @@ const Tags = ({ tags, search, postTags }) => {
     </Link>
   ));
   return (
-    <div className="tags centered m-b-sm">
-      {tagList}
-      <span className="tag" onClick={() => setAddingNewTag((prev) => !prev)}>
-        {loading ? (
-          <Loading />
-        ) : addingNewTag ? (
-          <input
-            id="tag-input"
-            className="text-input"
-            type="text"
-            value={input}
-            onChange={({ target }) => setInput(target.value)}
-            autoFocus
-            onBlur={() => setAddingNewTag(false)}
-            onKeyDown={({ keyCode }) => {
-              if (keyCode === 13) {
-                setLoading(true);
-                postTags(input).then(() => {
-                  setLoading(false);
-                });
-                setInput('');
-                setAddingNewTag(false);
-              } else if (keyCode === 13) {
-                setInput('');
-                setAddingNewTag(false);
-              }
-            }}
-          />
-        ) : (
-          <FontAwesomeIcon icon={faPlus} />
-        )}
-      </span>
-    </div>
-  );
+  <div className="tags centered m-b-sm">
+    {tagList}
+    <span
+      className="tag"
+      onClick={() => setAddingNewTag(prev => !prev)}
+    >
+      {loading ? <Loading /> : addingNewTag ? (
+        <input
+          id="tag-input"
+          className="text-input"
+          type="text"
+          value={input}
+          onChange={({ target }) => setInput(target.value)}
+          autoFocus
+          onBlur={() => setAddingNewTag(false)}
+          onKeyDown={({ keyCode }) => {
+            if (keyCode === 13) {
+              setLoading(true);
+              postTags(input).finally(() => setLoading(false));
+              setInput('');
+              setAddingNewTag(false);
+            } else if (keyCode === 27) {
+              setInput('');
+              setAddingNewTag(false);
+            }
+          }}
+        />
+      ): (
+        <FontAwesomeIcon icon={faPlus} />
+      )}
+    </span>
+  </div>);
 };
 
 export default Tags;
