@@ -79,7 +79,7 @@ const App = () => {
         </div>
       </div>
       {loading ? (
-        <Loading />
+        <Loading size="6x" />
       ) : (
         <>
           <div>

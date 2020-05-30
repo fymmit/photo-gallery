@@ -121,6 +121,30 @@ apiRouter.post('/images/:id/comments', (req, res) => {
     .catch((err) => res.sendStatus(500));
 });
 
+apiRouter.post('/images/:id/tags', async (req, res) => {
+  const { id } = req.params;
+  const { tags } = req.body;
+  const oldTags = await db.getTagsByImageId(id);
+  const newTags = tags.filter(
+    (tag) => oldTags.find((ot) => ot.tag === tag) === undefined,
+  );
+  if (newTags.length === 0) {
+    res.sendStatus(400);
+  }
+
+  db.insertTags(newTags)
+    .then((tagIds) => {
+      db.insertImageTags(id, tagIds).then(() => {
+        res.status(201).send({
+          tags: newTags.map((tag) => ({ tag })),
+        });
+      });
+    })
+    .catch((e) => {
+      res.sendStatus(500);
+    });
+});
+
 const PORT = 9000;
 app.listen(PORT, () => {
   console.log('Listening on port', PORT);
