@@ -9,6 +9,7 @@ import Loading from './loading';
 import getTags from '../services/tag-fetcher';
 import getComments from './../services/comment-fetcher';
 import postComment from './../services/comment-poster';
+import postTags from './../services/tag-poster';
 
 const PhotoInfo = ({ images, setSearchString }) => {
   const [loading, setLoading] = useState(true);
@@ -51,6 +52,19 @@ const PhotoInfo = ({ images, setSearchString }) => {
     });
   };
 
+  const handlePostTags = (newTags) => {
+    return new Promise((resolve, reject) => {
+      if (newTags.length > 0) {
+        postTags(id, newTags).then((res) => {
+          setTags(tags.concat(res.tags));
+          resolve();
+        });
+      } else {
+        reject();
+      }
+    });
+  }
+
   return (
     <div className="photo-info">
       {loading || image === null ? (
@@ -58,7 +72,7 @@ const PhotoInfo = ({ images, setSearchString }) => {
       ) : (
         <>
           <div className="col">
-            <Tags tags={tags} search={setSearchString} />
+            <Tags tags={tags} search={setSearchString} postTags={handlePostTags} />
             <div className="row j-c-sb">
               <Link
                 className="photo-info-arrow"

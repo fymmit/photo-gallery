@@ -187,6 +187,13 @@ a {
   width: 100px;
 }
 
+#tag-input {
+  text-align: center;
+  width: 50px;
+  background: var(--hl-color);
+  height: 6px;
+}
+
 .ellipsis {
   text-overflow: ellipsis;
   overflow: hidden;
@@ -234,6 +241,7 @@ a {
   padding: 4px;
   color: var(--text-color);
   margin-bottom: 0;
+  outline: none;
 }
 
 input[type='file'] {
