@@ -4,6 +4,7 @@ using Amazon;
 using Amazon.S3;
 using Amazon.S3.Model;
 using RestAPI.Settings;
+using Domain.Entities;
 
 namespace RestAPI.Services
 {
@@ -17,9 +18,9 @@ namespace RestAPI.Services
             bucket = settings.BucketName;
         }
 
-        public async Task<IEnumerable<string>> GetImages()
+        public async Task<IEnumerable<Image>> GetImages()
         {
-            var imageList = new List<string>();
+            var imageList = new List<Image>();
             var request = new ListObjectsRequest
             {
                 BucketName = bucket
@@ -28,10 +29,25 @@ namespace RestAPI.Services
             var response = await client.ListObjectsAsync(request);
             foreach (var entry in response.S3Objects)
             {
-                imageList.Add(entry.Key);
+                imageList.Add(new Image
+                {
+                    FileName = entry.Key,
+                    Id = imageList.Count + 1
+                });
             }
 
             return imageList;
+        }
+
+        public async Task DeleteImage(string key)
+        {
+            var request = new DeleteObjectRequest
+            {
+                BucketName = bucket,
+                Key = key
+            };
+
+            await client.DeleteObjectAsync(request);
         }
     }
 }

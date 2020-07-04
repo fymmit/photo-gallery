@@ -9,8 +9,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
 using RestAPI.Settings;
 using RestAPI.Services;
+using Persistence;
 
 namespace RestAPI
 {
@@ -31,6 +33,8 @@ namespace RestAPI
             services.AddControllers();
 
             services.AddSwaggerGen();
+
+            services.AddDbContext<FympixContext>();
 
             services.AddSingleton<AwsSettings>(awsSettings);
             services.AddTransient<IS3Service, S3Service>();
