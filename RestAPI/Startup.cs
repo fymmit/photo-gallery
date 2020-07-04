@@ -9,19 +9,21 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Swashbuckle.AspNetCore;
+using RestAPI.Settings;
+using RestAPI.Services;
 
 namespace RestAPI
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+        private AwsSettings awsSettings = new AwsSettings();
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            configuration.GetSection("AwsSettings").Bind(awsSettings);
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -29,6 +31,9 @@ namespace RestAPI
             services.AddControllers();
 
             services.AddSwaggerGen();
+
+            services.AddSingleton<AwsSettings>(awsSettings);
+            services.AddTransient<IS3Service, S3Service>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

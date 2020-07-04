@@ -1,12 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>a97abc8a-c1f2-434a-9465-82947e3421ac</UserSecretsId>
   </PropertyGroup>
-
   <ItemGroup>
+    <PackageReference Include="AWSSDK.S3" Version="3.3.111.21" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
   </ItemGroup>
-
-
 </Project>

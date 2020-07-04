@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using RestAPI.Services;
 
 namespace RestAPI.Controllers
 {
@@ -11,11 +12,16 @@ namespace RestAPI.Controllers
     [Route("api/images")]
     public class ImageController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult GetImages()
+        private IS3Service s3Service;
+        public ImageController(IS3Service s3Service)
         {
-            var content = "GET /images";
-            return new JsonResult(content);
+            this.s3Service = s3Service;
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<string>> GetImages()
+        {
+            return await s3Service.GetImages();
         }
     }
 }
